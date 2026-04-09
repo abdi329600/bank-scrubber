@@ -1,0 +1,198 @@
+{
+  "ruleset_version": "2.4.0",
+  "generated_at": "2026-04-07T21:00:00Z",
+  "currency": "USD",
+  "mode_defaults": {
+    "quick_categorize_threshold": 0.90,
+    "full_analysis_threshold": 0.70
+  },
+  "normalization": {
+    "strip_noise_tokens": ["POS", "DBT", "ACH", "ONLINE", "WEB", "PAYMENT", "DEBIT", "PURCHASE", "CARD", "VISA", "MASTERCARD"],
+    "collapse_whitespace": true,
+    "remove_trailing_digits": true
+  },
+  "rules": [
+    {
+      "rule_id": "REV_STRIPE_PAYOUT",
+      "layer": "pattern",
+      "direction": "CREDIT",
+      "match": { "contains_any": ["STRIPE PAYOUT", "STRIPE TRANSFER"] },
+      "maps_to": { "account_code": "4000", "category": "revenue", "subcategory": "card_processor" },
+      "confidence": 0.92,
+      "requires_review_if": { "amount_abs_gte": "5000.00" },
+      "evidence_note": "Stripe payouts typically represent customer receipts net of fees; reconcile to processor report."
+    },
+    {
+      "rule_id": "REV_SQUARE_PAYOUT",
+      "layer": "pattern",
+      "direction": "CREDIT",
+      "match": { "contains_any": ["SQUARE PAYOUT", "SQ PAYOUT", "SQUARE INC"] },
+      "maps_to": { "account_code": "4000", "category": "revenue", "subcategory": "card_processor" },
+      "confidence": 0.91,
+      "requires_review_if": { "amount_abs_gte": "5000.00" },
+      "evidence_note": "Square payouts represent POS receipts; reconcile to Square dashboard."
+    },
+    {
+      "rule_id": "REV_PAYPAL",
+      "layer": "pattern",
+      "direction": "CREDIT",
+      "match": { "contains_any": ["PAYPAL TRANSFER", "PAYPAL INST"] },
+      "maps_to": { "account_code": "4000", "category": "revenue", "subcategory": "card_processor" },
+      "confidence": 0.88,
+      "requires_review_if": { "amount_abs_gte": "3000.00" },
+      "evidence_note": "PayPal transfers may include non-revenue (refund reversals); verify source."
+    },
+    {
+      "rule_id": "COGS_INVENTORY_VENDOR",
+      "layer": "pattern",
+      "direction": "DEBIT",
+      "match": { "contains_any": ["SYSCO", "RESTAURANT DEPOT", "US FOODS", "GFS", "WHOLESALE"] },
+      "maps_to": { "account_code": "5000", "category": "cogs", "subcategory": "inventory" },
+      "confidence": 0.95,
+      "irs_schedule_c_line": "36",
+      "evidence_note": "Known food/supply distributor. Maps to COGS inventory purchases."
+    },
+    {
+      "rule_id": "COGS_PAYROLL",
+      "layer": "pattern",
+      "direction": "DEBIT",
+      "match": { "contains_any": ["PAYROLL", "GUSTO", "ADP", "PAYCHEX"] },
+      "maps_to": { "account_code": "5100", "category": "cogs", "subcategory": "direct_labor" },
+      "confidence": 0.90,
+      "irs_schedule_c_line": "26",
+      "evidence_note": "Payroll processors. Maps to wages/salaries expense.",
+      "requires_review_if": { "amount_abs_gte": "10000.00" }
+    },
+    {
+      "rule_id": "OPEX_RENT",
+      "layer": "pattern",
+      "direction": "DEBIT",
+      "match": { "contains_any": ["RENT", "LEASE PAYMENT", "PROPERTY MGMT"] },
+      "maps_to": { "account_code": "6100", "category": "opex", "subcategory": "rent" },
+      "confidence": 0.93,
+      "irs_schedule_c_line": "20b",
+      "evidence_note": "Rent or lease payments for business property."
+    },
+    {
+      "rule_id": "OPEX_INSURANCE",
+      "layer": "pattern",
+      "direction": "DEBIT",
+      "match": { "contains_any": ["INSURANCE", "GEICO", "PROGRESSIVE", "STATE FARM", "ALLSTATE", "WORKERS COMP"] },
+      "maps_to": { "account_code": "6300", "category": "opex", "subcategory": "insurance" },
+      "confidence": 0.92,
+      "irs_schedule_c_line": "15",
+      "evidence_note": "Insurance premiums. Verify business vs personal allocation."
+    },
+    {
+      "rule_id": "OPEX_UTILITIES",
+      "layer": "pattern",
+      "direction": "DEBIT",
+      "match": { "contains_any": ["ELECTRIC", "GAS BILL", "WATER BILL", "UTILITY", "INTERNET", "COMCAST", "ATT", "VERIZON"] },
+      "maps_to": { "account_code": "6200", "category": "opex", "subcategory": "utilities" },
+      "confidence": 0.90,
+      "irs_schedule_c_line": "25",
+      "evidence_note": "Utility payments. May require business-use percentage allocation."
+    },
+    {
+      "rule_id": "OPEX_MARKETING",
+      "layer": "pattern",
+      "direction": "DEBIT",
+      "match": { "contains_any": ["FACEBOOK ADS", "GOOGLE ADS", "INSTAGRAM", "MARKETING", "ADVERTISING", "YELP"] },
+      "maps_to": { "account_code": "6400", "category": "opex", "subcategory": "marketing" },
+      "confidence": 0.91,
+      "irs_schedule_c_line": "8",
+      "evidence_note": "Advertising and marketing expenses."
+    },
+    {
+      "rule_id": "OPEX_SOFTWARE",
+      "layer": "pattern",
+      "direction": "DEBIT",
+      "match": { "contains_any": ["QUICKBOOKS", "SUBSCRIPTION", "SAAS", "SOFTWARE", "ZOOM", "MICROSOFT", "ADOBE", "GOOGLE WORKSPACE"] },
+      "maps_to": { "account_code": "6500", "category": "opex", "subcategory": "software" },
+      "confidence": 0.88,
+      "irs_schedule_c_line": "18",
+      "evidence_note": "Software/SaaS subscriptions. Verify business use."
+    },
+    {
+      "rule_id": "OPEX_BANK_FEES",
+      "layer": "pattern",
+      "direction": "DEBIT",
+      "match": { "contains_any": ["SERVICE CHARGE", "MONTHLY FEE", "OVERDRAFT", "WIRE FEE", "NSF FEE", "ATM FEE"] },
+      "maps_to": { "account_code": "6600", "category": "opex", "subcategory": "bank_fees" },
+      "confidence": 0.95,
+      "irs_schedule_c_line": "27a",
+      "evidence_note": "Bank service fees and charges."
+    },
+    {
+      "rule_id": "OPEX_VEHICLE",
+      "layer": "pattern",
+      "direction": "DEBIT",
+      "match": { "contains_any": ["FUEL", "GAS STATION", "SHELL", "CHEVRON", "BP", "EXXON", "CAR WASH", "OIL CHANGE"] },
+      "maps_to": { "account_code": "6150", "category": "opex", "subcategory": "vehicle" },
+      "confidence": 0.85,
+      "irs_schedule_c_line": "9",
+      "evidence_note": "Vehicle expense. May use standard mileage rate instead; verify method.",
+      "flag": "VEHICLE_EXPENSE_METHOD"
+    },
+    {
+      "rule_id": "OPEX_MEALS",
+      "layer": "pattern",
+      "direction": "DEBIT",
+      "match": { "contains_any": ["RESTAURANT", "DOORDASH", "UBER EATS", "GRUBHUB", "CATERING", "BUSINESS MEAL"] },
+      "maps_to": { "account_code": "6350", "category": "opex", "subcategory": "meals_entertainment" },
+      "confidence": 0.82,
+      "deductible_pct": "0.50",
+      "substantiation_required": true,
+      "irs_schedule_c_line": "24b",
+      "evidence_note": "Meals expense — 50% deductible per IRS Pub 463. Substantiation required."
+    },
+    {
+      "rule_id": "OPEX_PROFESSIONAL",
+      "layer": "pattern",
+      "direction": "DEBIT",
+      "match": { "contains_any": ["ACCOUNTANT", "CPA", "ATTORNEY", "LAWYER", "LEGAL", "CONSULTANT", "BOOKKEEPER", "TAX PREP"] },
+      "maps_to": { "account_code": "6450", "category": "opex", "subcategory": "professional_services" },
+      "confidence": 0.90,
+      "irs_schedule_c_line": "17",
+      "evidence_note": "Professional/legal services."
+    },
+    {
+      "rule_id": "DEBT_LOAN_PAYMENT",
+      "layer": "pattern",
+      "direction": "DEBIT",
+      "match": { "contains_any": ["LOAN PAYMENT", "SBA LOAN", "LINE OF CREDIT", "NOTE PAYMENT", "EQUIPMENT FINANCING"] },
+      "maps_to": { "account_code": "6700", "category": "debt", "subcategory": "loan_payment" },
+      "confidence": 0.88,
+      "irs_schedule_c_line": "16b",
+      "evidence_note": "Loan payment — only interest portion is deductible. Principal is balance sheet. Requires amortization schedule for proper split.",
+      "flag": "LOAN_NEEDS_SPLIT"
+    },
+    {
+      "rule_id": "XFER_INTERNAL",
+      "layer": "pattern",
+      "direction": "BOTH",
+      "match": { "contains_any": ["TRANSFER", "XFER", "BETWEEN ACCOUNTS", "INTERNAL TRANSFER"] },
+      "maps_to": { "account_code": "0000", "category": "transfer", "subcategory": "internal" },
+      "confidence": 0.85,
+      "evidence_note": "Internal transfer — excluded from P&L."
+    },
+    {
+      "rule_id": "XFER_OWNER_DRAW",
+      "layer": "pattern",
+      "direction": "DEBIT",
+      "match": { "contains_any": ["OWNER DRAW", "DISTRIBUTION", "OWNER WITHDRAWAL"] },
+      "maps_to": { "account_code": "3200", "category": "transfer", "subcategory": "owner_draw" },
+      "confidence": 0.90,
+      "evidence_note": "Owner draw — equity reduction, not an expense."
+    },
+    {
+      "rule_id": "XFER_OWNER_CONTRIB",
+      "layer": "pattern",
+      "direction": "CREDIT",
+      "match": { "contains_any": ["OWNER CONTRIBUTION", "CAPITAL CONTRIBUTION", "SHAREHOLDER LOAN"] },
+      "maps_to": { "account_code": "3100", "category": "transfer", "subcategory": "owner_contribution" },
+      "confidence": 0.90,
+      "evidence_note": "Owner equity contribution — not revenue."
+    }
+  ]
+}

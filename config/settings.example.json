@@ -1,0 +1,16 @@
+{
+  "keep_last_four": true,
+  "output_directory": "output",
+  "custom_terms": [],
+  "redaction_types": {
+    "account_numbers": true,
+    "routing_numbers": true,
+    "ssn": true,
+    "phone_numbers": true,
+    "email_addresses": true,
+    "street_addresses": true,
+    "credit_cards": true,
+    "dates_of_birth": true,
+    "ip_addresses": true
+  }
+}

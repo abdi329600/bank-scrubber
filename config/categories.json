@@ -1,0 +1,92 @@
+{
+  "revenue": {
+    "sales": [
+      "payment", "deposit", "square", "venmo", "zelle in",
+      "paypal", "stripe", "cash deposit", "pos sale", "pos credit",
+      "shopify", "clover", "toast", "invoice payment", "client payment"
+    ],
+    "refund_received": [
+      "refund received", "reversal credit", "credit adjustment",
+      "chargeback reversal"
+    ]
+  },
+  "refund_out": {
+    "refunds_issued": [
+      "refund issued", "customer refund", "return credit",
+      "chargeback", "dispute"
+    ]
+  },
+  "cogs": {
+    "inventory": [
+      "sysco", "restaurant depot", "us foods", "gfs", "supplies",
+      "wholesale", "parts", "autozone", "napa", "oreilly",
+      "advance auto", "ingredient", "raw material", "food supply",
+      "packaging", "baker", "flour", "produce", "meat", "dairy"
+    ],
+    "direct_labor": [
+      "payroll", "gusto", "adp", "paychex", "direct labor",
+      "wage", "salary", "contractor pay", "hourly pay"
+    ]
+  },
+  "opex": {
+    "rent": [
+      "rent", "lease", "property management", "commercial lease"
+    ],
+    "utilities": [
+      "electric", "gas bill", "water bill", "utility", "con ed",
+      "pge", "duke energy", "sewer", "garbage", "waste management",
+      "comcast", "att", "verizon", "internet", "phone bill", "t-mobile"
+    ],
+    "insurance": [
+      "insurance", "geico", "progressive", "state farm", "allstate",
+      "liability", "workers comp", "health insurance", "dental",
+      "general liability"
+    ],
+    "marketing": [
+      "facebook ads", "google ads", "instagram", "marketing",
+      "advertising", "promo", "yelp", "print ad", "flyer",
+      "social media", "mailchimp", "constant contact"
+    ],
+    "software": [
+      "quickbooks", "square subscription", "subscription", "saas",
+      "software", "intuit", "xero", "freshbooks", "hubspot",
+      "zoom", "microsoft", "google workspace", "adobe",
+      "shopify subscription"
+    ],
+    "bank_fees": [
+      "service charge", "monthly fee", "overdraft", "wire fee",
+      "nsf fee", "account fee", "maintenance fee", "atm fee",
+      "foreign transaction"
+    ],
+    "vehicle": [
+      "fuel", "gas station", "shell", "chevron", "bp", "exxon",
+      "car wash", "oil change", "vehicle maintenance", "tire"
+    ],
+    "office": [
+      "office depot", "staples", "amazon business", "supplies",
+      "cleaning", "janitorial"
+    ],
+    "meals_entertainment": [
+      "restaurant", "doordash", "uber eats", "grubhub", "catering",
+      "client dinner", "business meal"
+    ],
+    "professional_services": [
+      "accountant", "cpa", "attorney", "lawyer", "legal",
+      "consultant", "bookkeeper", "tax prep"
+    ]
+  },
+  "debt": {
+    "loan_payment": [
+      "loan payment", "financing", "interest charge", "sba loan",
+      "line of credit", "credit line", "note payment",
+      "equipment financing", "merchant advance"
+    ]
+  },
+  "transfers": {
+    "internal": [
+      "transfer", "xfer", "savings", "between accounts",
+      "internal transfer", "owner draw", "distribution",
+      "owner contribution"
+    ]
+  }
+}

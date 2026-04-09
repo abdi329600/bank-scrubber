@@ -1,0 +1,14 @@
+.venv/
+venv/
+node_modules/
+frontend/dist/
+output/
+!output/.gitkeep
+input/
+!input/.gitkeep
+__pycache__/
+*.pyc
+*.pyo
+.DS_Store
+config/settings.json
+*.zip

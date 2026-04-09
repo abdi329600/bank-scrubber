@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.com/schemas/money.json",
+  "title": "Money",
+  "description": "Decimal-safe money representation. Value is a string to prevent IEEE-754 binary64 precision loss per RFC 8259.",
+  "type": "object",
+  "required": ["currency", "value"],
+  "properties": {
+    "currency": {
+      "type": "string",
+      "description": "ISO 4217 currency code",
+      "pattern": "^[A-Z]{3}$"
+    },
+    "value": {
+      "type": "string",
+      "description": "Decimal string with exactly 2 fraction digits",
+      "pattern": "^-?\\d+\\.\\d{2}$"
+    }
+  },
+  "additionalProperties": false
+}

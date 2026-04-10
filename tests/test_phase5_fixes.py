@@ -17,6 +17,7 @@ sys.path.insert(0, os.path.join(os.path.dirname(__file__), ".."))
 from engine.transaction import Transaction
 from categorization.categorizer_engine import CategorizerEngine
 from categorization.exact_match import ExactMatchLayer
+from categorization.pattern_match import PatternMatchLayer
 from categorization.chart_of_accounts import CHART_OF_ACCOUNTS
 from accounting.schedule_c import ScheduleCMapper, SCHEDULE_C_MAPPING
 from accounting.capex_classifier import CapexClassifier, CAPEX_EXCLUSIONS
@@ -217,6 +218,20 @@ class TestDeterministicInflows:
         r = self.layer.match("CONSULTING FEE - PROJECT ALPHA")
         assert r is not None
         assert r.account == "4300"
+
+    def test_revenue_keywords_not_forced_on_debit_side(self):
+        """Direction gate: debit-side Venmo should not hit revenue exact rules."""
+        r = self.layer.match("VENMO PAYMENT TO JOHN DOE", direction="DEBIT")
+        assert r is None
+
+
+class TestDirectionGates:
+    """Pattern/exact direction gates prevent revenue collisions on DEBIT txns."""
+
+    def test_pattern_revenue_rule_skipped_for_debit(self):
+        layer = PatternMatchLayer()
+        r = layer.match("VENMO PAYMENT TO JOHN DOE", amount=120.00, direction="DEBIT")
+        assert r is None
 
 
 # ═══════════════════════════════════════════════════════════════════

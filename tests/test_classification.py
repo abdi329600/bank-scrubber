@@ -81,6 +81,10 @@ class TestOutflowPreClassification:
         r = self.clf._classify_outflow("Owner Draw #1234")
         assert r.inflow_type == "EQUITY"
 
+    def test_atm_withdrawal_treated_as_equity(self):
+        r = self.clf._classify_outflow("ATM WITHDRAWAL 123 MAIN ST")
+        assert r.inflow_type == "EQUITY"
+
     def test_sales_tax_payment(self):
         r = self.clf._classify_outflow("Sales Tax Payment State of CA")
         assert r.inflow_type == "TAX_LIABILITY"

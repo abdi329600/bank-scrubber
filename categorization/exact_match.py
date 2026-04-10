@@ -87,53 +87,53 @@ EXACT_MATCH_RULES: Dict[str, Dict] = {
     "CLOVER FEE":             {"account": "6310", "name": "CC Processing Fees",          "type": "EXPENSE"},
 
     # ── REVENUE DEPOSITS (processor payouts) ────────────────
-    "SQUARE DEPOSIT":         {"account": "4000", "name": "Sales Revenue",               "type": "REVENUE"},
-    "SQ *DEPOSIT":            {"account": "4000", "name": "Sales Revenue",               "type": "REVENUE"},
-    "STRIPE PAYOUT":          {"account": "4000", "name": "Sales Revenue",               "type": "REVENUE"},
-    "STRIPE TRANSFER":        {"account": "4000", "name": "Sales Revenue",               "type": "REVENUE"},
-    "SHOPIFY PAYOUT":         {"account": "4000", "name": "Sales Revenue",               "type": "REVENUE"},
-    "PAYPAL TRANSFER":        {"account": "4000", "name": "Sales Revenue",               "type": "REVENUE"},
-    "CLOVER DEPOSIT":         {"account": "4000", "name": "Sales Revenue",               "type": "REVENUE"},
-    "TOAST DEPOSIT":          {"account": "4000", "name": "Sales Revenue",               "type": "REVENUE"},
+    "SQUARE DEPOSIT":         {"account": "4000", "name": "Sales Revenue",               "type": "REVENUE", "direction": "CREDIT"},
+    "SQ *DEPOSIT":            {"account": "4000", "name": "Sales Revenue",               "type": "REVENUE", "direction": "CREDIT"},
+    "STRIPE PAYOUT":          {"account": "4000", "name": "Sales Revenue",               "type": "REVENUE", "direction": "CREDIT"},
+    "STRIPE TRANSFER":        {"account": "4000", "name": "Sales Revenue",               "type": "REVENUE", "direction": "CREDIT"},
+    "SHOPIFY PAYOUT":         {"account": "4000", "name": "Sales Revenue",               "type": "REVENUE", "direction": "CREDIT"},
+    "PAYPAL TRANSFER":        {"account": "4000", "name": "Sales Revenue",               "type": "REVENUE", "direction": "CREDIT"},
+    "CLOVER DEPOSIT":         {"account": "4000", "name": "Sales Revenue",               "type": "REVENUE", "direction": "CREDIT"},
+    "TOAST DEPOSIT":          {"account": "4000", "name": "Sales Revenue",               "type": "REVENUE", "direction": "CREDIT"},
 
     # ── REVENUE — Direct Customer Receipts (deterministic) ─────
-    "POS SALE":               {"account": "4000", "name": "Sales Revenue",               "type": "REVENUE"},
-    "POS BATCH":              {"account": "4000", "name": "Sales Revenue",               "type": "REVENUE"},
-    "DAILY SALES":            {"account": "4000", "name": "Sales Revenue",               "type": "REVENUE"},
+    "POS SALE":               {"account": "4000", "name": "Sales Revenue",               "type": "REVENUE", "direction": "CREDIT"},
+    "POS BATCH":              {"account": "4000", "name": "Sales Revenue",               "type": "REVENUE", "direction": "CREDIT"},
+    "DAILY SALES":            {"account": "4000", "name": "Sales Revenue",               "type": "REVENUE", "direction": "CREDIT"},
     "CASH DEPOSIT":           {"account": "4000", "name": "Sales Revenue",               "type": "REVENUE",
-                               "flag": "Cash deposit — verify this is business revenue"},
-    "CUSTOMER PAYMENT":       {"account": "4000", "name": "Sales Revenue",               "type": "REVENUE"},
-    "CUSTOMER PMT":           {"account": "4000", "name": "Sales Revenue",               "type": "REVENUE"},
-    "CLIENT PAYMENT":         {"account": "4000", "name": "Sales Revenue",               "type": "REVENUE"},
-    "INVOICE PAYMENT":        {"account": "4000", "name": "Sales Revenue",               "type": "REVENUE"},
-    "INVOICE PMT":            {"account": "4000", "name": "Sales Revenue",               "type": "REVENUE"},
-    "SERVICE PAYMENT":        {"account": "4200", "name": "Service Revenue",             "type": "REVENUE"},
-    "CONSULTING FEE":         {"account": "4300", "name": "Consulting Revenue",          "type": "REVENUE"},
-    "ZELLE FROM":             {"account": "4000", "name": "Sales Revenue",               "type": "REVENUE"},
-    "ZELLE PAYMENT":          {"account": "4000", "name": "Sales Revenue",               "type": "REVENUE"},
-    "VENMO PAYMENT":          {"account": "4000", "name": "Sales Revenue",               "type": "REVENUE"},
-    "VENMO CASHOUT":          {"account": "4000", "name": "Sales Revenue",               "type": "REVENUE"},
+                               "flag": "Cash deposit — verify this is business revenue", "direction": "CREDIT"},
+    "CUSTOMER PAYMENT":       {"account": "4000", "name": "Sales Revenue",               "type": "REVENUE", "direction": "CREDIT"},
+    "CUSTOMER PMT":           {"account": "4000", "name": "Sales Revenue",               "type": "REVENUE", "direction": "CREDIT"},
+    "CLIENT PAYMENT":         {"account": "4000", "name": "Sales Revenue",               "type": "REVENUE", "direction": "CREDIT"},
+    "INVOICE PAYMENT":        {"account": "4000", "name": "Sales Revenue",               "type": "REVENUE", "direction": "CREDIT"},
+    "INVOICE PMT":            {"account": "4000", "name": "Sales Revenue",               "type": "REVENUE", "direction": "CREDIT"},
+    "SERVICE PAYMENT":        {"account": "4200", "name": "Service Revenue",             "type": "REVENUE", "direction": "CREDIT"},
+    "CONSULTING FEE":         {"account": "4300", "name": "Consulting Revenue",          "type": "REVENUE", "direction": "CREDIT"},
+    "ZELLE FROM":             {"account": "4000", "name": "Sales Revenue",               "type": "REVENUE", "direction": "CREDIT"},
+    "ZELLE PAYMENT":          {"account": "4000", "name": "Sales Revenue",               "type": "REVENUE", "direction": "CREDIT"},
+    "VENMO PAYMENT":          {"account": "4000", "name": "Sales Revenue",               "type": "REVENUE", "direction": "CREDIT"},
+    "VENMO CASHOUT":          {"account": "4000", "name": "Sales Revenue",               "type": "REVENUE", "direction": "CREDIT"},
     "CHECK DEPOSIT":          {"account": "4000", "name": "Sales Revenue",               "type": "REVENUE",
-                               "flag": "Check deposit — verify this is business revenue, not personal"},
-    "WIRE TRANSFER IN":       {"account": "4000", "name": "Sales Revenue",               "type": "REVENUE"},
-    "ACH DEPOSIT":            {"account": "4000", "name": "Sales Revenue",               "type": "REVENUE"},
-    "ACH CREDIT":             {"account": "4000", "name": "Sales Revenue",               "type": "REVENUE"},
+                               "flag": "Check deposit — verify this is business revenue, not personal", "direction": "CREDIT"},
+    "WIRE TRANSFER IN":       {"account": "4000", "name": "Sales Revenue",               "type": "REVENUE", "direction": "CREDIT"},
+    "ACH DEPOSIT":            {"account": "4000", "name": "Sales Revenue",               "type": "REVENUE", "direction": "CREDIT"},
+    "ACH CREDIT":             {"account": "4000", "name": "Sales Revenue",               "type": "REVENUE", "direction": "CREDIT"},
 
     # ── CONTRA-EXPENSE — Insurance Reimbursements (NOT revenue) ───
     "INSURANCE CLAIM":        {"account": "4500", "name": "Insurance Reimbursement",     "type": "REVENUE",
-                               "flag": "Contra to insurance expense — nets against 6200, not operating revenue"},
-    "INSURANCE REIMBURSE":    {"account": "4500", "name": "Insurance Reimbursement",     "type": "REVENUE"},
-    "INSURANCE REFUND":       {"account": "4500", "name": "Insurance Reimbursement",     "type": "REVENUE"},
-    "INSURANCE PROCEEDS":     {"account": "4500", "name": "Insurance Reimbursement",     "type": "REVENUE"},
-    "CLAIM PAYMENT":          {"account": "4500", "name": "Insurance Reimbursement",     "type": "REVENUE"},
-    "CLAIM SETTLEMENT":       {"account": "4500", "name": "Insurance Reimbursement",     "type": "REVENUE"},
+                               "flag": "Contra to insurance expense — nets against 6200, not operating revenue", "direction": "CREDIT"},
+    "INSURANCE REIMBURSE":    {"account": "4500", "name": "Insurance Reimbursement",     "type": "REVENUE", "direction": "CREDIT"},
+    "INSURANCE REFUND":       {"account": "4500", "name": "Insurance Reimbursement",     "type": "REVENUE", "direction": "CREDIT"},
+    "INSURANCE PROCEEDS":     {"account": "4500", "name": "Insurance Reimbursement",     "type": "REVENUE", "direction": "CREDIT"},
+    "CLAIM PAYMENT":          {"account": "4500", "name": "Insurance Reimbursement",     "type": "REVENUE", "direction": "CREDIT"},
+    "CLAIM SETTLEMENT":       {"account": "4500", "name": "Insurance Reimbursement",     "type": "REVENUE", "direction": "CREDIT"},
 
     # ── CONTRA-EXPENSE — Vendor Refunds (NOT revenue) ──────────
-    "VENDOR REFUND":          {"account": "4510", "name": "Vendor Refund",               "type": "REVENUE"},
-    "VENDOR CREDIT":          {"account": "4510", "name": "Vendor Credit",              "type": "REVENUE"},
-    "CREDIT MEMO":            {"account": "4510", "name": "Vendor Credit",              "type": "REVENUE"},
-    "RETURN CREDIT":          {"account": "4510", "name": "Vendor Refund",               "type": "REVENUE"},
-    "REFUND FROM":            {"account": "4510", "name": "Vendor Refund",               "type": "REVENUE"},
+    "VENDOR REFUND":          {"account": "4510", "name": "Vendor Refund",               "type": "REVENUE", "direction": "CREDIT"},
+    "VENDOR CREDIT":          {"account": "4510", "name": "Vendor Credit",              "type": "REVENUE", "direction": "CREDIT"},
+    "CREDIT MEMO":            {"account": "4510", "name": "Vendor Credit",              "type": "REVENUE", "direction": "CREDIT"},
+    "RETURN CREDIT":          {"account": "4510", "name": "Vendor Refund",               "type": "REVENUE", "direction": "CREDIT"},
+    "REFUND FROM":            {"account": "4510", "name": "Vendor Refund",               "type": "REVENUE", "direction": "CREDIT"},
 
     # ── COGS — Food / Supplies Vendors ──────────────────────
     "US FOODS":               {"account": "5000", "name": "COGS - Supplies",             "type": "COGS",
@@ -289,8 +289,14 @@ class ExactMatchLayer:
 
     def match(self, description: str, direction: str = "") -> Optional[MatchResult]:
         desc_upper = description.upper().strip()
-
-        for keyword, rule in self.rules.items():
+        # Longest-match-first prevents short generic rules (e.g. "CPA")
+        # from stealing more specific merchant matches.
+        sorted_rules = sorted(
+            self.rules.items(),
+            key=lambda item: len(item[0]),
+            reverse=True,
+        )
+        for keyword, rule in sorted_rules:
             if keyword in desc_upper:
                 # Check direction constraint if present
                 rule_dir = rule.get("direction", "")

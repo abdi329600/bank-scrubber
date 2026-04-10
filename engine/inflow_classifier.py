@@ -259,6 +259,8 @@ class InflowClassifier:
             r"MEMBER\s*DISTRIBUTION",
             r"SHAREHOLDER\s*DISTRIBUTION",
             r"PERSONAL\s*(TRANSFER|WITHDRAWAL)",
+            r"ATM\s*WITHDRAWAL",
+            r"CASH\s*WITHDRAWAL",
         ]
         for pat in owner_patterns:
             if re.search(pat, desc, re.IGNORECASE):

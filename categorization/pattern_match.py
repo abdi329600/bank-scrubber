@@ -259,12 +259,20 @@ class PatternMatchLayer:
         if extra_rules:
             self.rules.extend(extra_rules)
 
-    def match(self, description: str, amount: float = 0) -> Optional[PatternResult]:
+    def match(
+        self,
+        description: str,
+        amount: float = 0,
+        direction: str = "",
+    ) -> Optional[PatternResult]:
         desc_upper = description.upper().strip()
         best: Optional[PatternResult] = None
         best_score = 0.0
 
         for rule in self.rules:
+            rule_direction = rule.get("direction", "")
+            if rule_direction and direction and rule_direction != direction:
+                continue
             hits = sum(1 for p in rule["patterns"] if p in desc_upper)
             if hits == 0:
                 continue

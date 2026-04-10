@@ -1,5 +1,6 @@
 """End-to-end pipeline test."""
 from pathlib import Path
+from decimal import Decimal
 from engine import DocumentExtractor
 from categorization import CategorizerEngine
 from accounting import JournalEntryGenerator, TrialBalanceGenerator, ScheduleCMapper
@@ -54,7 +55,10 @@ print(f"[4] Flags: {flags['flag_counts']}")
 pkg = CPAReportPackage()
 package = pkg.generate(batch, "Demo Auto Shop", "January 2024", "output")
 pnl = package["profit_and_loss"]
-print(f"[5] Revenue=${pnl['revenue']['total']:,.2f}  COGS=${pnl['cogs']['total']:,.2f}  Net=${pnl['net_income']:,.2f}")
+revenue_total = Decimal(str(pnl["revenue"]["total"]))
+cogs_total = Decimal(str(pnl["cogs"]["total"]))
+net_income = Decimal(str(pnl["net_income"]))
+print(f"[5] Revenue=${revenue_total:,.2f}  COGS=${cogs_total:,.2f}  Net=${net_income:,.2f}")
 print(f"    TB balanced={package['trial_balance']['is_balanced']}")
 print(f"    JSON saved to {package['_saved_to']}")
 

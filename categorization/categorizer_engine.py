@@ -75,9 +75,19 @@ class CategorizerEngine:
             return txn
 
         desc = txn.description
+        normalized_candidates = []
+        for candidate in (txn.description, txn.merchant_clean, txn.canonical_merchant_id):
+            if candidate and candidate not in normalized_candidates:
+                normalized_candidates.append(candidate)
 
         # ── Layer 1: Exact Match ────────────────────────────────
-        result = self.layer1.match(desc, direction=txn.direction)
+        result = None
+        matched_text = ""
+        for candidate in normalized_candidates:
+            result = self.layer1.match(candidate, direction=txn.direction)
+            if result:
+                matched_text = candidate
+                break
         if result:
             txn.account_code = result.account
             txn.account_name = result.account_name
@@ -87,6 +97,7 @@ class CategorizerEngine:
             txn.matched_rule_id = result.rule_id
             txn.categorization_evidence = [
                 f"Exact match rule '{result.rule_id}'",
+                f"Matched text: {matched_text}",
                 f"Merchant: {norm.canonical_id}",
                 f"Confidence: {result.confidence}",
             ]
@@ -124,7 +135,17 @@ class CategorizerEngine:
             return txn
 
         # ── Layer 2: Pattern Match ──────────────────────────────
-        pattern = self.layer2.match(desc, amount=float(txn.amount))
+        pattern = None
+        matched_pattern_text = ""
+        for candidate in normalized_candidates:
+            pattern = self.layer2.match(
+                candidate,
+                amount=float(txn.amount),
+                direction=txn.direction,
+            )
+            if pattern:
+                matched_pattern_text = candidate
+                break
         if pattern:
             txn.account_code = pattern.account
             txn.account_name = pattern.account_name
@@ -135,6 +156,7 @@ class CategorizerEngine:
             txn.matched_tokens = [t for t in norm.tokens if t.upper() in desc.upper()]
             txn.categorization_evidence = [
                 f"Pattern match rule '{pattern.rule_id}'",
+                f"Matched text: {matched_pattern_text}",
                 f"Matched tokens: {txn.matched_tokens}",
                 f"Merchant: {norm.canonical_id}",
                 f"Confidence: {pattern.confidence}",
